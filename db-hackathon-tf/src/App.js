@@ -14,7 +14,7 @@ import input from './input.json';
 function App() {
 
   const url = "https://storage.cloud.google.com/testtechnotf/ExportDataSet/Sample/test/16c33214ab76a6d5/Performance%20Guarantee%20-%20Wayne%20Enterprise%20Corporation%20.json?authuser=0";
-  const [data, setData] = useState([]);
+  const [data, setData] = useState(input);
   
   const fetchInfo = () => { 
     let headers = new Headers();
@@ -55,6 +55,13 @@ function App() {
     //   fetchInfo();
     // }, [])
 
+    const getClass = (entity) => {
+      let classType = "table-danger";
+      if(entity.textAnchor.content === null || entity.textAnchor.content === ''){
+        classType = "table-danger";
+      }
+      return classType;
+    }
 
   return (
     <div className="App">
@@ -74,14 +81,13 @@ function App() {
     <div className="col-sm-2">
       <button className="btn btn-primary" type="button" onClick={(e) => {
       e.preventDefault();
-      alert("here");
       fetchInfo();
-    }}>Button</button>
+    }}>Search</button>
   </div>
   </div>
   </form>
 
-
+<h1>Extracted Entities Summary</h1>
 <table className="table">
   <thead>
   <tr>
@@ -90,14 +96,36 @@ function App() {
 </tr>
 </thead>
 <tbody>
-{this.data.entities.map((entities) => {
-    <tr className="table-primary">  
-      <td className="table-primary">{entities.type}</td>
-      <td className="table-primary">{entities.textAnchor.content}</td>
+{data.entities.map((entity, index) => {
+   let classType = getClass(entity);
+    return <tr className={classType}> 
+     <td className={classType}>{entity.type}</td>
+     <td className={classType}>{entity.textAnchor.content}</td>
     </tr>
  })}
 </tbody>
 </table>
+
+
+<h1>Clauses Summary</h1>
+<table className="table">
+  <thead>
+  <tr>
+  <th className="table-primary col-sm-8">Clause Data</th>
+  <th className="table-primary col-sm-2 ">Risk Type</th>
+</tr>
+</thead>
+<tbody>
+{data.entities.map((entity, index) => {
+   let classType = getClass(entity);
+    return <tr className={classType}> 
+     <td className={classType}>{entity.textAnchor.content}</td>
+     <td className={classType}>HIGH</td>     
+    </tr>
+ })}
+</tbody>
+</table>
+
 
   </div>
     </div>
