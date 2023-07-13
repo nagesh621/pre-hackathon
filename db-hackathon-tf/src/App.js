@@ -2,10 +2,18 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useState, useEffect } from "react";
+import input from './input.json';
+// import {getFiles} from './controller/listFiles';
+// Imports the Google Cloud client library
+// import {Storage} from '@google-cloud/storage';
+
+// Creates a client
+// const storage = new Storage();
+
 
 function App() {
 
-  const url = "https://storage.cloud.google.com/testtechnotf/ExportDataSet/Sample/test/16c33214ab76a6d5/Performance%20Guarantee%20-%20Wayne%20Enterprise%20Corporation%20.json";
+  const url = "https://storage.cloud.google.com/testtechnotf/ExportDataSet/Sample/test/16c33214ab76a6d5/Performance%20Guarantee%20-%20Wayne%20Enterprise%20Corporation%20.json?authuser=0";
   const [data, setData] = useState([]);
   
   const fetchInfo = () => { 
@@ -14,15 +22,33 @@ function App() {
     headers.append('Content-Type', 'application/json');
     headers.append('Accept', 'application/json');
     // headers.append('Authorization', 'Basic ' + base64.encode(username + ":" +  password));
-    headers.append('Origin','http://localhost:3000');
-    return fetch( {
-      mode: 'cors',
-      credentials: 'include',
-      method: 'POST',
-      headers: headers
-      }, url)
-            .then((res) => res.json()) 
-            .then((d) => setData(d)) ;
+    headers.append('Origin','https://vijeshkunnummal-ideal-space-succotash-v6jj9vqv7wxhwpww-3000.preview.app.github.dev');
+    // return fetch( url, {
+    //   mode: 'no cors',
+    //   credentials: 'include',
+    //   method: 'POST',
+    //   headers: headers
+    //   })
+    //         .then((res) => res.json()) 
+    //         .then((d) => setData(d)) ;
+
+    // return fetch(url, {
+    //   method: "GET", // *GET, POST, PUT, DELETE, etc.
+    //   mode: "no-cors", // no-cors, *cors, same-origin
+    //   cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+    //   // credentials: "same-origin", // include, *same-origin, omit
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     // 'Content-Type': 'application/x-www-form-urlencoded',
+    //   },
+    //   // redirect: "follow", // manual, *follow, error
+    //   referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+    //   // body: JSON.stringify(data), // body data type must match "Content-Type" header
+    // }).then((res) => res.json()) 
+    // .then((d) => setData(d)) ;
+    setData(input);
+;
+    return input; 
     }
     
     // useEffect(() => {
@@ -49,11 +75,12 @@ function App() {
       <button className="btn btn-primary" type="button" onClick={(e) => {
       e.preventDefault();
       alert("here");
-      //fetchInfo();
+      fetchInfo();
     }}>Button</button>
   </div>
   </div>
   </form>
+
 
 <table className="table">
   <thead>
@@ -63,14 +90,12 @@ function App() {
 </tr>
 </thead>
 <tbody>
-<tr className="table-primary">
-<td className="table-primary">Applicant</td>
-<td className="table-primary">Testing Table structre</td>
-</tr>
-<tr className="table-primary">
-<td className="table-primary">Beneficiary</td>
-<td className="table-primary">Testing Table structre2</td>
-</tr>
+{this.data.entities.map((entities) => {
+    <tr className="table-primary">  
+      <td className="table-primary">{entities.type}</td>
+      <td className="table-primary">{entities.textAnchor.content}</td>
+    </tr>
+ })}
 </tbody>
 </table>
 
