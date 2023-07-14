@@ -13,7 +13,7 @@ import input from './input.json';
 
 function App() {
 
-  const url = "https://storage.cloud.google.com/testtechnotf/ExportDataSet/Sample/test/16c33214ab76a6d5/Performance%20Guarantee%20-%20Wayne%20Enterprise%20Corporation%20.json?authuser=0";
+  const url = "https://us-central1-hack-team-technotf.cloudfunctions.net/function-1";
   const [data, setData] = useState(input);
   
   const fetchInfo = () => { 
@@ -32,22 +32,23 @@ function App() {
     //         .then((res) => res.json()) 
     //         .then((d) => setData(d)) ;
 
-    // return fetch(url, {
-    //   method: "GET", // *GET, POST, PUT, DELETE, etc.
-    //   mode: "no-cors", // no-cors, *cors, same-origin
-    //   cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-    //   // credentials: "same-origin", // include, *same-origin, omit
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     // 'Content-Type': 'application/x-www-form-urlencoded',
-    //   },
-    //   // redirect: "follow", // manual, *follow, error
-    //   referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-    //   // body: JSON.stringify(data), // body data type must match "Content-Type" header
-    // }).then((res) => res.json()) 
-    // .then((d) => setData(d)) ;
+    //return
+    fetch(url, {
+      method: "GET", // *GET, POST, PUT, DELETE, etc.
+      mode: "no-cors", // no-cors, *cors, same-origin
+      cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+      // credentials: "same-origin", // include, *same-origin, omit
+      headers: {
+        "Content-Type": "application/json",
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      // redirect: "follow", // manual, *follow, error
+      referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+      // body: JSON.stringify(data), // body data type must match "Content-Type" header
+    }).then((res) => res.json)
+    .then((d) => console.log(d)) ;
     setData(input);
-;
+
     return input; 
     }
     
